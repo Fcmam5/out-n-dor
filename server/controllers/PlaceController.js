@@ -18,7 +18,9 @@ module.exports = {
                     error: err
                 });
             }
-            return res.json(Places);
+            return res.json({
+              "results": Places
+            });
         });
     },
 
