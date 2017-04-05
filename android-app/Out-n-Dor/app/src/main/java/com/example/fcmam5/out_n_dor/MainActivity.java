@@ -11,23 +11,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import models.PlaceModel;
 
 public class MainActivity extends AppCompatActivity {
-    protected final String API_URL = "http://7b7bf4eb.ngrok.io/api/v1/"; // TODO: This link will change every time I launch my local server
+    protected final String API_URL = "http://10.0.2.2:3000/api/v1/"; // TODO: This link will change every time I launch my local server
     protected ArrayList<PlaceModel> placesArray = new ArrayList(); // PlaceModel lists
 
     TextView textView;
@@ -120,27 +117,38 @@ public class MainActivity extends AppCompatActivity {
                 String instagram;
                 String website;
                 String tel;
+                String type;
+                String city;
+                String img;
+
+                placesArray.clear();
 
                 for (int i=0; i< jsonArray.length();i++){
+                    latt = jsonArray.getJSONObject(i).has("latt") ?
+                            jsonArray.getJSONObject(i).getDouble("latt") : 0;
+                    lng = jsonArray.getJSONObject(i).has("long") ?
+                            jsonArray.getJSONObject(i).getDouble("long") : 0;
+                    urban_adr = getValueOrDefault(jsonArray.getJSONObject(i),"urban_adr");
                     name = getValueOrDefault(jsonArray.getJSONObject(i),"name");
                     address = getValueOrDefault(jsonArray.getJSONObject(i),"address");
-                    urban_adr = getValueOrDefault(jsonArray.getJSONObject(i),"urban_adr");
-                    latt = jsonArray.getJSONObject(i).has("latt") ?
-                                    jsonArray.getJSONObject(i).getDouble("latt") : 0;
-                    lng = jsonArray.getJSONObject(i).has("long") ?
-                                    jsonArray.getJSONObject(i).getDouble("long") : 0;
                     nature = getValueOrDefault(jsonArray.getJSONObject(i),"nature");
                     description = getValueOrDefault(jsonArray.getJSONObject(i),"description");
                     fb = getValueOrDefault(jsonArray.getJSONObject(i),"fb");
                     instagram = getValueOrDefault(jsonArray.getJSONObject(i),"instagram");
                     website = getValueOrDefault(jsonArray.getJSONObject(i),"website");
                     tel = getValueOrDefault(jsonArray.getJSONObject(i),"tel");
+                    type = getValueOrDefault(jsonArray.getJSONObject(i),"type");
+                    img = getValueOrDefault(jsonArray.getJSONObject(i),"img");
+                    city = getValueOrDefault(jsonArray.getJSONObject(i),"city");
 
                     //Append new Place Object to Array
                     placesArray.add(
-                            new PlaceModel(name,address,urban_adr,latt,lng,nature,description,fb,
-                            instagram,website,tel)
+                            new PlaceModel(type, name, address, urban_adr, latt, lng, nature,
+                                    description, fb, instagram,
+                                    website, tel, city, img)
                     );
+
+                    publishProgress(placesArray.size() +"");
                 }
 
                 in.close();

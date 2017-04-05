@@ -17,8 +17,14 @@ public class PlaceModel {
     private String website;
     private String tel;
     private long likes;
+    private String type;
+    private String city;
+    private String img;
 
-    public PlaceModel(String name, String address, String urban_adr, double latt, double lng, String nature, String description, String fb, String instagram, String website, String tel) {
+    public PlaceModel(String type, String name, String address, String urban_adr, double latt,
+                      double lng, String nature, String description, String fb, String instagram,
+                      String website, String tel, String city, String img) {
+        this.type = type;
         this.name = name;
         this.address = address;
         this.urban_adr = urban_adr;
@@ -30,7 +36,22 @@ public class PlaceModel {
         this.instagram = instagram;
         this.website = website;
         this.tel = tel;
+        this.city = city;
         this.likes = 0;
+        switch (img){
+            case "sport": this.img = "https://image.flaticon.com/icons/svg/372/372520.svg";
+                break;
+            case "tourism": this.img = "https://image.flaticon.com/icons/svg/206/206974.svg";
+                break;
+            case "park": this.img = "https://image.flaticon.com/icons/svg/140/140677.svg";
+                break;
+            case "library": this.img = "https://image.flaticon.com/icons/svg/164/164949.svg";
+                break;
+            default:
+                this.img = "x";
+                break;
+
+        }
     }
 
     public String getName() {
@@ -133,4 +154,27 @@ public class PlaceModel {
         this.likes++;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 }
