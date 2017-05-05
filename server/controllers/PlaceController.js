@@ -24,6 +24,18 @@ module.exports = {
         });
     },
 
+    getByType: function(req, res) {
+      var type = req.params.type;
+      PlaceModel.find({'type': type}, function(err, Places){
+        if (err || !Places) {
+          return res.status(404).json("No Places found !");
+        }
+        return res.json({
+          "results": Places
+        });
+      })
+    },
+
     /**
      * PlaceController.show()
      */

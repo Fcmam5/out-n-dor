@@ -8,6 +8,11 @@ var PlaceController = require('../controllers/PlaceController.js');
 router.get('/', PlaceController.list);
 
 /*
+ * GET places by type
+ */
+router.get('/places/:type', PlaceController.getByType);
+
+/*
  * GET
  */
 router.get('/:id', PlaceController.show);
