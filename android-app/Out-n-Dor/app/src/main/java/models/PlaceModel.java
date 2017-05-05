@@ -16,6 +16,7 @@ public class PlaceModel {
     private String instagram;
     private String website;
     private String tel;
+    private String price;
     private long likes;
     private String type;
     private String city;

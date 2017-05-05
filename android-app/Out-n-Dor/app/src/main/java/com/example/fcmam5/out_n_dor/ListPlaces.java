@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.json.JSONArray;
@@ -23,18 +24,23 @@ import java.util.ArrayList;
 
 import models.PlaceModel;
 
-public class MainActivity extends AppCompatActivity {
-    protected final String API_URL = "http://10.0.2.2:3000/api/v1/"; // TODO: This link will change every time I launch my local server
+public class ListPlaces extends AppCompatActivity {
+    // TODO: 05/05/17 Get place name from Intent
+    protected String API_URL = "http://10.0.2.2:3000/api/v1/places/"; // TODO: This link will change every time I launch my local server
     protected ArrayList<PlaceModel> placesArray = new ArrayList(); // PlaceModel lists
 
     TextView textView;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.list_places);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        listView = (ListView) findViewById(R.id.list_places);
+        getData();
+
 
         textView = (TextView) findViewById(R.id.textView);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -69,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getData(View view) {
+    public void getData() {
         try {
             new MyAsynchTask().execute(API_URL);
         }catch (Exception e){
@@ -165,9 +171,9 @@ public class MainActivity extends AppCompatActivity {
         protected void onProgressUpdate(String... values) {
             try{
                 textView.setText(values[0]);
-                Toast.makeText(MainActivity.this, values[0], Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListPlaces.this, values[0], Toast.LENGTH_SHORT).show();
             }catch (Exception e){
-                Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ListPlaces.this, "Error", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -179,11 +185,8 @@ public class MainActivity extends AppCompatActivity {
             * Todo: Here you'll have an ArrayList, do whatever you want :-)
             * Example:
             */
-            String restults = "";
-            for (int i = 0; i < placesArray.size(); i++) {
-                restults += i+ "- "+ placesArray.get(i).getName() + "\n";
-            }
-            textView.setText(restults);
+            PlacesAdapter placeAdapter = new PlacesAdapter(ListPlaces.this, R.layout.list_place_item, placesArray);
+            listView.setAdapter(placeAdapter);
 
         }
     }
