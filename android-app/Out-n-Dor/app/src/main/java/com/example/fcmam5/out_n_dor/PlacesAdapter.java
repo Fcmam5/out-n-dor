@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.location.places.Place;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -41,15 +43,11 @@ public class PlacesAdapter extends ArrayAdapter<PlaceModel> {
     }
 
     private class PlaceHolder {
-
         public ImageView place_icon;
         public TextView place_name;
         public TextView place_city;
         public ImageView place_icon_price;
         public TextView place_price;
-
-
-
     }
 
     @NonNull
@@ -76,24 +74,23 @@ public class PlacesAdapter extends ArrayAdapter<PlaceModel> {
 
         PlaceModel item = data.get(position);
         holder.place_name.setText(item.getName().toString());
-        URL url = null;
-        try {
-            url = new URL(item.getImg().toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Bitmap bitmap = null;
-        try {
-            bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        holder.place_icon.setImageBitmap(bitmap);
+        Log.e("",item.getImg());
+//        Picasso.with(this.getContext()).load(item.getImg()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(holder.place_icon, new com.squareup.picasso.Callback(){
+//            @Override
+//            public void onSuccess() {
+//
+//            }
+//
+//            @Override
+//            public void onError() {
+//
+//            }
+//        });
         holder.place_city.setText(item.getCity().toString());
         String nature = item.getNature();
-        int iconResource = getContext().getResources().getIdentifier(nature, null, getContext().getPackageName());
-        Drawable res = getContext().getResources().getDrawable(iconResource);
-        holder.place_icon_price.setImageDrawable(res);
+        //int iconResource = getContext().getResources().getIdentifier("ic_launcher", null, getContext().getPackageName());
+        //Drawable res = getContext().getResources().getDrawable(iconResource);
+        //holder.place_icon_price.setImageDrawable(res);
         holder.place_price.setText(item.getNature().toString());
 
         return row;

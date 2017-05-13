@@ -16,7 +16,6 @@ public class PlaceModel {
     private String instagram;
     private String website;
     private String tel;
-    private String price;
     private long likes;
     private String type;
     private String city;
@@ -39,20 +38,7 @@ public class PlaceModel {
         this.tel = tel;
         this.city = city;
         this.likes = 0;
-        switch (img){
-            case "sport": this.img = "https://image.flaticon.com/icons/svg/372/372520.svg";
-                break;
-            case "tourism": this.img = "https://image.flaticon.com/icons/svg/206/206974.svg";
-                break;
-            case "park": this.img = "https://image.flaticon.com/icons/svg/140/140677.svg";
-                break;
-            case "library": this.img = "https://image.flaticon.com/icons/svg/164/164949.svg";
-                break;
-            default:
-                this.img = "x";
-                break;
-
-        }
+        this.img = img;
     }
 
     public String getName() {

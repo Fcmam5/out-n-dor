@@ -26,7 +26,7 @@ import models.PlaceModel;
 
 public class ListPlaces extends AppCompatActivity {
     // TODO: 05/05/17 Get place name from Intent
-    protected String API_URL = "http://10.0.2.2:3000/api/v1/places/"; // TODO: This link will change every time I launch my local server
+    protected String API_URL = "http://10.0.2.2:3000/api/v1/"; // TODO: This link will change every time I launch my local server
     protected ArrayList<PlaceModel> placesArray = new ArrayList(); // PlaceModel lists
 
     TextView textView;
@@ -36,21 +36,11 @@ public class ListPlaces extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_places);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         listView = (ListView) findViewById(R.id.list_places);
         getData();
 
 
-        textView = (TextView) findViewById(R.id.textView);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
     @Override

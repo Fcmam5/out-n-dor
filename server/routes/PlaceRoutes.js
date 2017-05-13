@@ -22,6 +22,7 @@ router.get('/:id', PlaceController.show);
  */
 router.post('/', PlaceController.create);
 
+
 /*
  * PUT
  */
