@@ -36,6 +36,23 @@ module.exports = {
       })
     },
 
+    getRandom: function(req, res) {
+      PlaceModel.count().exec(function(err, count){
+        var random = Math.floor(Math.random() * count);
+        PlaceModel.findOne().skip(random).exec(function (err, Places) {
+
+          if (err || !Places) {
+            return res.status(404).json("No Places found !");
+          }
+          return res.json({
+            "results": Places
+          });
+
+      });
+
+      });
+    },
+
     /**
      * PlaceController.show()
      */

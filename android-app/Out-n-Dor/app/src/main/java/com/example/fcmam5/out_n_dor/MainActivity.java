@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
+     Button boutonSport= (Button)findViewById(R.id.buttonSport);
+    Button boutonPark= (Button)findViewById(R.id.buttonPark);
+    Button boutonLibrary= (Button)findViewById(R.id.buttonLibrary);
+    Button boutonTourism= (Button)findViewById(R.id.buttonTourism);
 
    Button boutonSport= (Button)findViewById(R.id.buttonSport);
     Button boutonPark= (Button)findViewById(R.id.buttonPark);
@@ -19,26 +23,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void clickFunction(View view){
+  protected void clickFunction(View view){
         Intent intent= new Intent(MainActivity.this, ListPlaces.class);
         switch(view.getId()){
             case R.id.buttonSport:
-                intent.putExtra("sport",boutonSport.getText().toString().toLowerCase());
+                intent.putExtra("","sport");
                 break;
             case R.id.buttonLibrary:
-                intent.putExtra("library",boutonLibrary.getText().toString().toLowerCase());
+                intent.putExtra("param","library");
                 break;
 
             case R.id.buttonPark:
-                intent.putExtra("park",boutonPark.getText().toString().toLowerCase());
+                intent.putExtra("param","park");
                 break;
             case R.id.buttonTourism:
-                intent.putExtra("tourism",boutonTourism.getText().toString().toLowerCase());
+                intent.putExtra("param","tourism");
                 break;
         }
-
-
-    }
-
-   
+    startActivity(intent);
+    }   
 }

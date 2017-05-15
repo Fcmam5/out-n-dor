@@ -10,7 +10,8 @@ router.get('/', PlaceController.list);
 /*
  * GET places by type
  */
-router.get('/places/:type', PlaceController.getByType);
+router.get('/random', PlaceController.getRandom);
+router.get('/:type', PlaceController.getByType);
 
 /*
  * GET

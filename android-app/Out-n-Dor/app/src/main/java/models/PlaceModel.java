@@ -1,10 +1,12 @@
 package models;
 
+import java.io.Serializable;
+
 /**
  * Created by fcmam5 on 28/03/17.
  */
 
-public class PlaceModel {
+public class PlaceModel implements Serializable {
     private String name;
     private String address;
     private String urban_adr;
@@ -163,5 +165,14 @@ public class PlaceModel {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    @Override
+    public String toString() {
+        return "PlaceModel{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", urban_adr='" + urban_adr + '\'' +
+                '}';
     }
 }
