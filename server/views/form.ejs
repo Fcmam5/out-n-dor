@@ -2,55 +2,104 @@
 <html>
   <head>
     <title><%= title %></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <form class="" method="post" action="/api/v1/">
-      <label for="">name</label>
-      <input type="text" name="name" value="">
-      <br>
-      <label for="">adress</label>
-      <input type="text" name="address" value="">
-      <br>
-      <label for="">description</label>
-      <input type="text" name="description" value="">
-      <br>
-      <label for="">long</label>
-      <input type="text" name="long" value="">
-      <br>
-      <label for="">latt</label>
-      <input type="text" name="latt" value="">
-      <br>
-      <label for="">fb</label>
-      <input type="text" name="fb" value="">
-      <br>
-      <label for="">instagram</label>
-      <input type="text" name="instagram" value="">
-      <br>
-      <label for="">website</label>
-      <input type="text" name="website" value="">
-      <br>
-      <label for="">urban_adr</label>
-      <input type="text" name="urban_adr" value="">
-      <br>
-      <label for="">type</label>
-      <input type="text" name="type" value="">
-      <br>
-      <label for="">tel</label>
-      <input type="text" name="tel" value="">
-      <br>
-      <label for="">city</label>
-      <input type="text" name="city" value="">
-      <br>
-      <label for="">img</label>
-      <input type="text" name="img" value="">
-      <br>
-      <label for="">nature</label>
-      <input type="text" name="nature" value="">
-      <br>
-      <button type="submit" name="button">Submit</button>
-    </form>
+
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <form class="" method="post" action="/api/v1/">
+            <div class="form-group">
+
+              <label for="">name</label>
+              <input type="text" class="form-control" name="name" value="">
+            </div>
+            <div class="form-group">
+
+              <label for="">adress</label>
+              <input type="text" class="form-control" name="address" value="">
+            </div>
+            <div class="form-group">
+
+              <label for="">description</label>
+              <textarea type="text" class="form-control" name="description" value=""></textarea>
+            </div>
+            <div class="form-group">
+
+              <label for="">long</label>
+              <input type="text" class="form-control" name="long" value="">
+            </div>
+            <div class="form-group">
+
+              <label for="">latt</label>
+              <input type="text" class="form-control" name="latt" value="">
+            </div>
+            <div class="form-group">
+
+              <label for="">fb</label>
+              <input type="text" class="form-control" name="fb" value="">
+            </div>
+            <div class="form-group">
+
+              <label for="">instagram</label>
+              <input type="text" class="form-control" name="instagram" value="">
+            </div>
+            <div class="form-group">
+
+              <label for="">website</label>
+              <input type="text" class="form-control" name="website" value="">
+            </div>
+            <div class="form-group">
+
+              <label for="">urban_adr</label>
+              <input type="text" class="form-control" name="urban_adr" value="">
+            </div>
+            <div class="form-group">
+              <label for="">type</label>
+              <select class="form-control" name="type">
+                <option value="sport">Sport</option>
+                <option value="park">Park</option>
+                <option value="tourism">Tourism</option>
+                <option value="library">Library</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="">tel</label>
+              <input type="text" class="form-control" name="tel" value="">
+            </div>
+            <div class="form-group">
+              <label for="">city</label>
+              <input type="text" class="form-control" name="city" value="">
+            </div>
+            <div class="form-group">
+              <label for="">img</label>
+              <input type="text" class="form-control" name="img" value="">
+            </div>
+            <div class="form-group">
+              <label for="">nature</label>
+              <select class="form-control" value="nature">
+                <option value="free">Free</option>
+                <option value="paid">Paid</option>
+                <option value="public">Public</option>
+              </select>
+
+
+            </div>
+              <button type="submit" name="button" class="btn btn-default">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
