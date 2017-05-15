@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void rsel(View view) {
         Intent intent = new Intent(MainActivity.this, ListPlaces.class);
+        intent.putExtra("param", "tourism");
         startActivity(intent);
     }
 }

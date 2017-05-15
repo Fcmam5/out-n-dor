@@ -1,5 +1,6 @@
 package com.example.fcmam5.out_n_dor;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,16 +33,46 @@ public class ListPlaces extends AppCompatActivity {
 
     TextView textView;
     ListView listView;
-
+    Intent intent;
+    Intent paramIntent;
+    String paramTmp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_places);
         listView = (ListView) findViewById(R.id.list_places);
+        intent = new Intent(ListPlaces.this, PlaceDetails.class);
+        paramIntent = getIntent();
+
+        paramTmp = paramIntent.getStringExtra("param");
+        API_URL += paramTmp;
+
         getData();
 
 
 
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView placeName = (TextView) view.findViewById(R.id.place_name);
+                String name = placeName.getText().toString();
+                int indice = getIndexByString(name);
+                Intent intent = new Intent(ListPlaces.this, PlaceDetails.class);
+                intent.putExtra("PlaceModel", placesArray.get(indice));
+                startActivity(intent);
+
+            }
+        });
+    }
+
+    public int getIndexByString(String name) {
+        for(int i=0; i< placesArray.size(); i++) {
+            if(placesArray.get(i).getName().equals(name));
+            return i;
+        }
+        return -1;
     }
 
     @Override
@@ -86,6 +118,7 @@ public class ListPlaces extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             placesArray.clear(); // Clearing the Arraylist for new updates
+            // TODO: 15/05/17 ulr + extra
         }
 
         @Override
@@ -175,8 +208,15 @@ public class ListPlaces extends AppCompatActivity {
             * Todo: Here you'll have an ArrayList, do whatever you want :-)
             * Example:
             */
-            PlacesAdapter placeAdapter = new PlacesAdapter(ListPlaces.this, R.layout.list_place_item, placesArray);
-            listView.setAdapter(placeAdapter);
+
+            if (paramIntent.getStringExtra("param").equals("random")){
+                intent.putExtra("PlaceModel", placesArray.get(0));
+                startActivity(intent);
+            }else {
+                PlacesAdapter placeAdapter = new PlacesAdapter(ListPlaces.this, R.layout.list_place_item, placesArray);
+                listView.setAdapter(placeAdapter);
+            }
+
 
         }
     }
