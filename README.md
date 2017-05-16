@@ -4,6 +4,8 @@ MobileApplications course project, a simple Android application with a Node/Expr
 **Out-N-Dor**, is a mix of Outdoor and `أخرج و دور` (Go and hangout in Oranian dialect). This application is dedicated to Oran people intially who don't know where to hangout.
 
 ## To do
+- [ ] Fix minor bugs.
+- [ ] Add rating system.
 - [ ] Work on the application frontend.
 - [ ] Work on the web version.
 - [ ] Localize it.
