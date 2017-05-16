@@ -39,13 +39,13 @@ module.exports = {
     getRandom: function(req, res) {
       PlaceModel.count().exec(function(err, count){
         var random = Math.floor(Math.random() * count);
-        PlaceModel.findOne().skip(random).exec(function (err, Places) {
+        PlaceModel.findOne().skip(random).exec(function (err, Place) {
 
-          if (err || !Places) {
+          if (err || !Place) {
             return res.status(404).json("No Places found !");
           }
           return res.json({
-            "results": Places
+            "results": [Place]
           });
 
       });
@@ -79,7 +79,8 @@ module.exports = {
      */
     create: function (req, res) {
         var Place = new PlaceModel({
-			name : req.body.name,			address : req.body.address,
+			name : req.body.name,
+			address : req.body.address,
       urban_adr: req.body.urban_adr,
       type: req.body.type,
       nature: req.body.nature,
@@ -104,7 +105,8 @@ module.exports = {
             console.log(Place);
             return res.status(201).json(Place);
         });
-    },
+
+     },
 
     /**
      * PlaceController.update()
@@ -125,7 +127,9 @@ module.exports = {
             }
 
               //TODO fix this
-            Place.name = req.body.name ? req.body.name : Place.name;			Place.address = req.body.address ? req.body.address : Place.address;      Place.urban_adr= req.body.urban_adr ? req.body.urban_adr: Place.urban_adr
+            Place.name = req.body.name ? req.body.name : Place.name;
+			Place.address = req.body.address ? req.body.address : Place.address;
+      Place.urban_adr= req.body.urban_adr ? req.body.urban_adr: Place.urban_adr
       Place.latt = req.body.latt ? req.body.latt : Place.latt ;
       Place.long = req.body.long ? req.body.long : Place.long;
       Place.nature = req.body.nature ? req.body.nature : Place.nature;

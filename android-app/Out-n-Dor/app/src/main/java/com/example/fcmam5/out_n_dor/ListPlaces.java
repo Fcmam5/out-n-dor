@@ -3,10 +3,8 @@ package com.example.fcmam5.out_n_dor;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,8 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -27,15 +27,15 @@ import java.util.ArrayList;
 import models.PlaceModel;
 
 public class ListPlaces extends AppCompatActivity {
-    // TODO: 05/05/17 Get place name from Intent
     protected String API_URL = "http://10.0.2.2:3000/api/v1/"; // TODO: This link will change every time I launch my local server
-    protected ArrayList<PlaceModel> placesArray = new ArrayList(); // PlaceModel lists
+    protected ArrayList<PlaceModel> placesArray = new ArrayList(); // PlaceModel list
 
     TextView textView;
     ListView listView;
     Intent intent;
     Intent paramIntent;
     String paramTmp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +45,10 @@ public class ListPlaces extends AppCompatActivity {
         paramIntent = getIntent();
 
         paramTmp = paramIntent.getStringExtra("param");
+
         API_URL += paramTmp;
 
         getData();
-
-
-
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,8 +65,8 @@ public class ListPlaces extends AppCompatActivity {
     }
 
     public int getIndexByString(String name) {
-        for(int i=0; i< placesArray.size(); i++) {
-            if(placesArray.get(i).getName().equals(name));
+        for (int i = 0; i < placesArray.size(); i++) {
+            if (placesArray.get(i).getName().equals(name)) ;
             return i;
         }
         return -1;
@@ -100,7 +97,7 @@ public class ListPlaces extends AppCompatActivity {
     public void getData() {
         try {
             new MyAsynchTask().execute(API_URL);
-        }catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(this, "Error when connecting to the server", Toast.LENGTH_SHORT).show();
         }
     }
@@ -152,23 +149,23 @@ public class ListPlaces extends AppCompatActivity {
 
                 placesArray.clear();
 
-                for (int i=0; i< jsonArray.length();i++){
+                for (int i = 0; i < jsonArray.length(); i++) {
                     latt = jsonArray.getJSONObject(i).has("latt") ?
                             jsonArray.getJSONObject(i).getDouble("latt") : 0;
                     lng = jsonArray.getJSONObject(i).has("long") ?
                             jsonArray.getJSONObject(i).getDouble("long") : 0;
-                    urban_adr = getValueOrDefault(jsonArray.getJSONObject(i),"urban_adr");
-                    name = getValueOrDefault(jsonArray.getJSONObject(i),"name");
-                    address = getValueOrDefault(jsonArray.getJSONObject(i),"address");
-                    nature = getValueOrDefault(jsonArray.getJSONObject(i),"nature");
-                    description = getValueOrDefault(jsonArray.getJSONObject(i),"description");
-                    fb = getValueOrDefault(jsonArray.getJSONObject(i),"fb");
-                    instagram = getValueOrDefault(jsonArray.getJSONObject(i),"instagram");
-                    website = getValueOrDefault(jsonArray.getJSONObject(i),"website");
-                    tel = getValueOrDefault(jsonArray.getJSONObject(i),"tel");
-                    type = getValueOrDefault(jsonArray.getJSONObject(i),"type");
-                    img = getValueOrDefault(jsonArray.getJSONObject(i),"img");
-                    city = getValueOrDefault(jsonArray.getJSONObject(i),"city");
+                    urban_adr = getValueOrDefault(jsonArray.getJSONObject(i), "urban_adr");
+                    name = getValueOrDefault(jsonArray.getJSONObject(i), "name");
+                    address = getValueOrDefault(jsonArray.getJSONObject(i), "address");
+                    nature = getValueOrDefault(jsonArray.getJSONObject(i), "nature");
+                    description = getValueOrDefault(jsonArray.getJSONObject(i), "description");
+                    fb = getValueOrDefault(jsonArray.getJSONObject(i), "fb");
+                    instagram = getValueOrDefault(jsonArray.getJSONObject(i), "instagram");
+                    website = getValueOrDefault(jsonArray.getJSONObject(i), "website");
+                    tel = getValueOrDefault(jsonArray.getJSONObject(i), "tel");
+                    type = getValueOrDefault(jsonArray.getJSONObject(i), "type");
+                    img = getValueOrDefault(jsonArray.getJSONObject(i), "img");
+                    city = getValueOrDefault(jsonArray.getJSONObject(i), "city");
 
                     //Append new Place Object to Array
                     placesArray.add(
@@ -176,15 +173,15 @@ public class ListPlaces extends AppCompatActivity {
                                     description, fb, instagram,
                                     website, tel, city, img)
                     );
+                    publishProgress("loading..");
 
-                    publishProgress(placesArray.size() +"");
                 }
 
                 in.close();
+                publishProgress(placesArray.size() + " result found !");
 
-                publishProgress("loading..");
-            } catch (Exception e){
-                publishProgress("Error when getting JSON!");
+            } catch (Exception e) {
+                publishProgress("Error when getting JSON! ");
 
             }
             return null;
@@ -192,27 +189,25 @@ public class ListPlaces extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(String... values) {
-            try{
-                textView.setText(values[0]);
+            try {
                 Toast.makeText(ListPlaces.this, values[0], Toast.LENGTH_SHORT).show();
-            }catch (Exception e){
-                Toast.makeText(ListPlaces.this, "Error", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(ListPlaces.this, "Error" + e, Toast.LENGTH_SHORT).show();
             }
         }
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
             /*
             * Todo: Here you'll have an ArrayList, do whatever you want :-)
             * Example:
             */
-
-            if (paramIntent.getStringExtra("param").equals("random")){
+            if (paramIntent.getStringExtra("param").equals("random")) {
                 intent.putExtra("PlaceModel", placesArray.get(0));
+                intent.putExtra("rand", 5);
                 startActivity(intent);
-            }else {
+            } else {
                 PlacesAdapter placeAdapter = new PlacesAdapter(ListPlaces.this, R.layout.list_place_item, placesArray);
                 listView.setAdapter(placeAdapter);
             }
@@ -221,23 +216,27 @@ public class ListPlaces extends AppCompatActivity {
         }
     }
 
-    public String Stream2String(InputStream inputStream){
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+    public String Stream2String(InputStream inputStream) {
+        /**
+         * Converting Stream to String
+         * @return String
+         */
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line = "";
         String text = "";
 
         try {
-            while((line=bufferedReader.readLine())!= null){
+            while ((line = bufferedReader.readLine()) != null) {
                 text += line;
             }
             inputStream.close();
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            Log.e("Error", e.toString());
         }
         return text;
     }
 
-    private String getValueOrDefault(JSONObject jsonObject, String field) throws Exception{
+    private String getValueOrDefault(JSONObject jsonObject, String field) throws Exception {
         /**
          * Check if the JSON object has the given field and return it, or return an empty string
          */

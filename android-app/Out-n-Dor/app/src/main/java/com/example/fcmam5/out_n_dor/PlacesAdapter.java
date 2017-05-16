@@ -26,11 +26,11 @@ import java.util.List;
 import models.PlaceModel;
 
 /**
- * Created by fcmam5 on 05/05/17.
+ * Created by Amine on 05/05/17.
  */
 
 public class PlacesAdapter extends ArrayAdapter<PlaceModel> {
-
+    //Todo: Fix this problem of Picasso library
     Context context;
     int layoutResourceId;
     ArrayList<PlaceModel> data = null;
@@ -57,7 +57,7 @@ public class PlacesAdapter extends ArrayAdapter<PlaceModel> {
         PlaceHolder holder = null;
 
         if (row == null) {
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
+            LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
             holder = new PlaceHolder();
@@ -74,7 +74,7 @@ public class PlacesAdapter extends ArrayAdapter<PlaceModel> {
 
         PlaceModel item = data.get(position);
         holder.place_name.setText(item.getName().toString());
-        Log.e("",item.getImg());
+        Log.e("", item.getImg());
 //        Picasso.with(this.getContext()).load(item.getImg()).placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(holder.place_icon, new com.squareup.picasso.Callback(){
 //            @Override
 //            public void onSuccess() {
